@@ -50,14 +50,14 @@ use SimpleXMLElement;
  */
 class BigBlueButton
 {
-    protected $securitySalt;
     protected $bbbServerBaseUrl;
+    protected $securitySalt;
     protected $urlBuilder;
 
-    public function __construct()
+    public function __construct($bbbServerBaseUrl = NULL, $securitySalt = NULL)
     {
-        $this->securitySalt     = getenv('BBB_SECURITY_SALT');
-        $this->bbbServerBaseUrl = getenv('BBB_SERVER_BASE_URL');
+        $this->bbbServerBaseUrl = $bbbServerBaseUrl === NULL ? getenv('BBB_SERVER_BASE_URL') : $bbbServerBaseUrl;
+        $this->securitySalt     = $securitySalt === NULL ? getenv('BBB_SECURITY_SALT') : $securitySalt;
         $this->urlBuilder       = new UrlBuilder($this->securitySalt, $this->bbbServerBaseUrl);
     }
 
